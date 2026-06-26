@@ -1,0 +1,91 @@
+1. git init
+2. .gitignore   file banabo 
+    eikhane rakhbo        node_modules
+                          dist
+
+3. npm init
+npm install typescript tsx @types/node --save-dev
+npx tsc --init
+
+
+উপরের ৩ টি কমান্ড একত্রে রান করেছি, কিন্তু পরে আবার 
+4. npm install typescript tsx @types/node --save-dev
+5. npx tsc --init
+এগুলো রান করতে হয়। 
+
+6. npm install prisma @types/pg --save-dev
+7. npm install @prisma/client @prisma/adapter-pg pg dotenv
+
+8. configure ts config by saved configaration
+9. configure package.json type="module"
+
+10. npx prisma
+11. npx prisma init --output ../generated/prisma
+
+12. prisma postgres  diye google e search kore directly oder DB te dukhbo, 
+command diye na kore, login kore create new project diye database er name dibo, 
+"skip deploy for now" te click korbo,
+erpor "Open connect setup" e click korbo. 
+erpor connecttoin string niye .env o database URL e dibo
+
+13. npm i express
+14. npm i @types/express --save-dev
+15. npm i bcryptjs
+16.npm i cors
+17. npm i @types/cors --save-dev
+18. npm i cookie-parser
+19. npm i @types/cookie-parser --save-dev
+20. npm i http-status
+21. npm i jsonwebtoken
+22. npm i @types/jsonwebtoken --save-dev
+
+23.
+
+"dev":"tsx watch src/server.ts",
+    "build":"tsc",
+    "start": "node dist/server.js",
+
+এই লাইনগুলো package.json এ এড করব server.ts ও  app.ts এ কোড লিখার পরে ।
+
+24. src/lib/prisma.ts banabo , eikhane documentation er code dibo
+prisma.ts er error thik kore er por 
+25. server.ts e  documentation er script.ts file e 
+
+26. src/config/index.ts e environment variable sob one place e rakhbo
+
+27. model create korar pore
+    npx prisma migrate dev
+28. erpore ekta name caibe
+29. npx prisma studio
+30. npx prisma generate
+
+31. npm run dev
+
+register user on app.ts
+
+32. model e konu edit korle
+     npx prisma migrate dev
+     npx prisma generate 
+
+33. route, controller , service     alada kora modular patter e 
+    src/modules/user/user.route.ts
+                      user.controller.ts
+                      user.service.ts
+
+Summary: 
+
+1. Project planning to complete
+2. Braistorm, Requierment Analysis, ERD Design
+3. Project setum, + Prima and DB connection
+4. Prisma Schema and Model
+5. Multi file Prisma Schema Technique
+6. Prima migration & client generation
+7. Server & App setup
+8. Demp API Check and DB check
+9. User Register route /api/users/register
+10. route, controller, service, Breakdown
+11. Controller only Handles request and response
+12. Service Handles core business logics And Database Communication And Queries or CRUD
+13. Try catch block inside the Controller
+14. Controller Handles and cathces the Errors with try-catch block
+15. Password hashing 
