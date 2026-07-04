@@ -72,7 +72,13 @@ register user on app.ts
                       user.controller.ts
                       user.service.ts
 
-Summary: 
+
+34. Ctrl + C  diye server off
+35. npx prisma format
+
+36. npx prisma migrate dev
+37. npx prisma generate
+Summary: Of Module 20
 
 1. Project planning to complete
 2. Braistorm, Requierment Analysis, ERD Design
@@ -89,3 +95,9 @@ Summary:
 13. Try catch block inside the Controller
 14. Controller Handles and cathces the Errors with try-catch block
 15. Password hashing 
+
+Summary: Of Module 21
+
+Summary: Of Module 22
+
+Summary: Of Module 23
