@@ -78,6 +78,10 @@ register user on app.ts
 
 36. npx prisma migrate dev
 37. npx prisma generate
+
+PAYMENT 
+
+
 Summary: Of Module 20
 
 1. Project planning to complete
@@ -101,3 +105,39 @@ Summary: Of Module 21
 Summary: Of Module 22
 
 Summary: Of Module 23
+
+1. comment APIs
+2. filtering, searching, Pagination, Sorting
+3. Data finding method 2 types
+   - Exact match = filtering
+     eg: ? title= Christiano Ronaldo
+   - Partial match = searching
+     eg: ?title = ron
+   -Pagination? page=1&limit=10
+          -limit = stake
+          -page= skip => (page-1)*limit
+    -sorting ? sortBy=title&orderBy=asc/desc
+           sortBy & sortOrder = orderby
+              orderBy => sortBy: sortOrder (asc/desc)
+4.Response data & meta
+   - meta => page, limit, total, totalPages
+
+5.Filtering, Searching, Pagination, Sorting
+  - hardcore
+  - dynamically from API request query => rer.query/posts?title="chir"
+  -clean code
+
+6. Middleware
+   
+   7.Not found Route
+   8.Global Error handler
+     - error response from catchAsync
+     - global error handler
+    
+   9. Prisma specific Error handle
+      - 5 types Error catagory from prisma
+      - Error codes from prisma (P1000,P1001,P2025 etc)
+      - combining error categories & error codes From prisma
+      -enhance global error handler
+
+
