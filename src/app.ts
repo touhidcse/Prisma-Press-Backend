@@ -12,6 +12,7 @@ import { commentRoutes } from "./modules/comment/comment.routes";
 import path from "node:path";
 import { notFound } from "./middlewares/notFound";
 import { globalErrorHandler } from "./middlewares/globalErrorHandler";
+import { subsCriptionRoutes } from "./modules/subscription/subscription.route";
 
 const app : Application = express()
 
@@ -38,6 +39,7 @@ app.use("/api/posts",postRoutes)
 
 app.use("/api/comments", commentRoutes)
 
+app.use("/api/subscription", subsCriptionRoutes)
 
 // konot URL na pele
 // app.use((req: Request, res: Response)=>{
