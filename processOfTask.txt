@@ -79,7 +79,52 @@ register user on app.ts
 36. npx prisma migrate dev
 37. npx prisma generate
 
-PAYMENT 
+STRIPE PAYMENT 
+
+38. npm install --save stripe
+
+    lib er modde ekta file stripe.ts
+39. stripe CLI
+    npm i -g @stripe/cli
+40. stripe login 
+
+   package.json e script banano "stripe:webhook": "stripe listen --forward-to localhost:5000/api/subscription/webhook",
+41. npm run stripe:webhook
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 Summary: Of Module 20
