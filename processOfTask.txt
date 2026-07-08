@@ -90,41 +90,8 @@ STRIPE PAYMENT
 
    package.json e script banano "stripe:webhook": "stripe listen --forward-to localhost:5000/api/subscription/webhook",
 41. npm run stripe:webhook
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    eita run korle stripe er secret paoa jabe, er por onno terminale nicer command run korte hobe
+42. stripe trigger payment_intent.succeeded
 
 
 Summary: Of Module 20
