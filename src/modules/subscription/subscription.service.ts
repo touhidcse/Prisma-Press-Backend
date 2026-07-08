@@ -65,19 +65,22 @@ const handleWebhook = async (payload: Buffer, signature: string) => {
         endpointSecret
     )
 
+    // console.log("Event Type:", event.type);
+    // console.log(event.data.object);
     // handle the event
     switch (event.type) {
         case 'checkout.session.completed':
-            
-           
-        
+            // console.log(event.data.object);
+            await handleCheckoutCompleted(event.data.object)
+
+
             break;
         case 'customer.subscription.updated':
-            
-           
+
+
             break;
         case 'customer.subscription.deleted':
-           
+
             break;
         default:
             // Unexpected event type
@@ -85,6 +88,52 @@ const handleWebhook = async (payload: Buffer, signature: string) => {
             break;
     }
 }
+
+
+
+const getPeriodEnd = (payload: Stripe.Subscription)=>{
+    // console.log("Sub infro", stripeSubscripton.items.data[0]);
+
+    // const currentPeriodStart = stripeSubscripton.items.data[0]?.current_period_start;
+    const currentPeriodEndInMilliSecond = payload.items.data[0]?.current_period_end!;
+    const currentPeriodEnd = new Date(currentPeriodEndInMilliSecond * 1000)
+    // console.log("currentEnd", currentPeriodEnd);
+
+    return currentPeriodEnd;
+}
+
+
+const handleCheckoutCompleted = async (session: Stripe.Checkout.Session) => {
+    const userId = session.metadata?.userId;
+    const stripeCustomerId = session.customer as string;
+    const stripeSubscriptionId = session.subscription as string;
+
+    if (!userId || !stripeCustomerId || !stripeSubscriptionId) {
+        throw new Error("Webhook Failed")
+    }
+
+    const stripeSubscripton = await stripe.subscriptions.retrieve(stripeSubscriptionId);
+    const currentPeriodEnd = getPeriodEnd(stripeSubscripton)
+    await prisma.subscription.upsert({
+        where: {
+            userId
+        },
+        create: {
+            userId,
+            stripeCustomerId,
+            stripeSubscriptionId,
+            status: "ACTIVE",
+            currentPeriodEnd
+        },
+        update: {
+            stripeCustomerId,
+            stripeSubscriptionId,
+            status: "ACTIVE",
+            currentPeriodEnd
+        }
+    })
+}
+
 export const subscriptionServices = {
     createCheckoutSession,
     handleWebhook
