@@ -5,6 +5,18 @@ import { ICreatePostPayload, IPostQuery, IUpdatePostPayload } from "./post.inter
 
 const createPost = async (payload: ICreatePostPayload, userId: string) => {
 
+    const user = await prisma.user.findFirstOrThrow({
+        where: {
+            id: userId
+        },
+        include:{
+            subscription: true,
+        },
+    })
+
+    if(payload.isPremium && user.subscription?.status !=="ACTIVE"){
+        throw new Error("You are not premium user, thant's why you can not create premium content")
+    }
     const result = await prisma.post.create({
         data: {
             ...payload,
@@ -90,6 +102,10 @@ const getAllPosts = async ( query: IPostQuery) => {
     };
 
 
+    // premium content hide from gel all post
+    andCondition.push({
+        isPremium:false
+    })
 
     const posts = await prisma.post.findMany({
 
@@ -255,7 +271,20 @@ const getAllPosts = async ( query: IPostQuery) => {
         }
     })
 
-    return posts;
+    const totalPostCount = await prisma.post.count({
+        where:{
+            AND: andCondition
+        }
+    })
+    return {
+        data: posts,
+        meta: {
+            page: page,
+            limit: limit,
+            total: totalPostCount,
+            totalPages: Math.ceil(totalPostCount/limit)
+        }
+    }
 
 }
 
@@ -482,6 +511,7 @@ const getPostById = async (postId: string) => {
             await tx.post.update({
                 where: {
                     id: postId,
+                    
                 },
                 data: {
                     views: {
@@ -493,7 +523,8 @@ const getPostById = async (postId: string) => {
             // throw new Error("Fake Error")
             const post = await tx.post.findUniqueOrThrow({
                 where: {
-                    id: postId
+                    id: postId,
+                    isPremium: false
                 },
                 include: {
                     author: {

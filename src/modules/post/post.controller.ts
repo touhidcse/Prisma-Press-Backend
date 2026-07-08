@@ -6,15 +6,15 @@ import httpstatus from "http-status"
 
 
 
-const createPost = catchAsync(async (req: Request, res: Response, next: NextFunction)=>{
+const createPost = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 
     const id = req.user?.id
 
     const payload = req.body
 
-    const result = await postService.createPost(payload,id as string)
+    const result = await postService.createPost(payload, id as string)
 
-    sendResponse(res,{
+    sendResponse(res, {
         success: true,
         statusCode: httpstatus.CREATED,
         message: "Post created Successfully",
@@ -22,7 +22,7 @@ const createPost = catchAsync(async (req: Request, res: Response, next: NextFunc
 
     })
 })
-const getAllPosts = catchAsync(async (req: Request, res: Response, next: NextFunction)=>{
+const getAllPosts = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 
     const query = req.query;
     // console.log(query);
@@ -31,14 +31,15 @@ const getAllPosts = catchAsync(async (req: Request, res: Response, next: NextFun
         success: true,
         statusCode: httpstatus.OK,
         message: " Data retrieved successfully",
-        data: result
+        data: result.data,
+        meta: result.meta
     })
 
 })
-const getPostStats = catchAsync(async (req: Request, res: Response, next: NextFunction)=>{
+const getPostStats = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 
     const result = await postService.getPostStats()
-     sendResponse(res, {
+    sendResponse(res, {
         success: true,
         statusCode: httpstatus.OK,
         message: "Post stats retrieved successfully",
@@ -46,10 +47,10 @@ const getPostStats = catchAsync(async (req: Request, res: Response, next: NextFu
     })
 
 })
-const getMyPosts = catchAsync(async (req: Request, res: Response, next: NextFunction)=>{
+const getMyPosts = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 
     const authorId = req.user?.id;
-    const result= await postService.getMyPosts(authorId as string)
+    const result = await postService.getMyPosts(authorId as string)
 
     sendResponse(res, {
         success: true,
@@ -58,10 +59,10 @@ const getMyPosts = catchAsync(async (req: Request, res: Response, next: NextFunc
         data: result
     })
 })
-const getPostById = catchAsync(async (req: Request, res: Response, next: NextFunction)=>{
+const getPostById = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 
     const postId = req.params.postId;
-    if(!postId){
+    if (!postId) {
         throw new Error("Post Id requires in Params");
     }
     const result = await postService.getPostById(postId as string);
@@ -74,19 +75,19 @@ const getPostById = catchAsync(async (req: Request, res: Response, next: NextFun
     })
 
 })
-const updatePost = catchAsync(async (req: Request, res: Response, next: NextFunction)=>{
+const updatePost = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const authorId = req.user?.id;
-    const isAdmin= req.user?.role ==="ADMIN";
+    const isAdmin = req.user?.role === "ADMIN";
     const postId = req.params.postId;
 
-     if(!postId){
+    if (!postId) {
         throw new Error("Post Id requires in Params");
     }
 
     const payload = req.body;
-    const result = await postService.updatePost(postId as string, payload, authorId as string,isAdmin)
+    const result = await postService.updatePost(postId as string, payload, authorId as string, isAdmin)
 
-      sendResponse(res, {
+    sendResponse(res, {
         success: true,
         statusCode: httpstatus.OK,
         message: "Post updated Successfully",
@@ -94,19 +95,19 @@ const updatePost = catchAsync(async (req: Request, res: Response, next: NextFunc
     })
 
 })
-const deletePost = catchAsync(async (req: Request, res: Response, next: NextFunction)=>{
+const deletePost = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 
     const authorId = req.user?.id;
-    const isAdmin= req.user?.role ==="ADMIN";
+    const isAdmin = req.user?.role === "ADMIN";
     const postId = req.params.postId;
 
-     if(!postId){
+    if (!postId) {
         throw new Error("Post Id requires in Params");
     }
 
-     await postService.deletePost(postId as string, authorId as string,isAdmin)
+    await postService.deletePost(postId as string, authorId as string, isAdmin)
 
-      sendResponse(res, {
+    sendResponse(res, {
         success: true,
         statusCode: httpstatus.OK,
         message: "Post deleted Successfully",
@@ -114,7 +115,7 @@ const deletePost = catchAsync(async (req: Request, res: Response, next: NextFunc
     })
 })
 
-export const postController={
+export const postController = {
     createPost,
     getAllPosts,
     getPostStats,

@@ -93,6 +93,11 @@ STRIPE PAYMENT
     eita run korle stripe er secret paoa jabe, er por onno terminale nicer command run korte hobe
 42. stripe trigger payment_intent.succeeded
 
+43. stripe subscriptions cancel sub_1TqrJaCtpsvM8cBiPWPkT6fR
+
+*** 44. stripe listen --forward-to localhost:5000/api/subscription/webhook
+        listen calu rekhe checkout korte hobe
+
 
 Summary: Of Module 20
 
@@ -151,5 +156,3 @@ Summary: Of Module 23
       - Error codes from prisma (P1000,P1001,P2025 etc)
       - combining error categories & error codes From prisma
       -enhance global error handler
-
-

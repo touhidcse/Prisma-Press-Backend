@@ -5,7 +5,8 @@ model Subscription {
 
     currentPeriodEnd DateTime
     status           SubscriptionStatus @default(ACTIVE)
-
+    
+    subscription String
     //STRIPE related ids
 
     // stripe customer ids
@@ -17,5 +18,5 @@ model Subscription {
     createdAt DateTime @default(now())
     updatedAt DateTime @default(now())
 
-    @@map("subsciptions")
+    @@map("subscriptions")
 }

@@ -14,6 +14,7 @@ import { notFound } from "./middlewares/notFound";
 import { globalErrorHandler } from "./middlewares/globalErrorHandler";
 import { subsCriptionRoutes } from "./modules/subscription/subscription.route";
 import stripe from "./lib/stripe";
+import { premiumRoutes } from "./modules/premium/premium.route";
 
 const app : Application = express()
 
@@ -93,6 +94,7 @@ app.use("/api/posts",postRoutes)
 app.use("/api/comments", commentRoutes)
 
 app.use("/api/subscription", subsCriptionRoutes)
+app.use("/api/premium", premiumRoutes)
 
 // konot URL na pele
 // app.use((req: Request, res: Response)=>{

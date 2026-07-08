@@ -28,7 +28,7 @@ const getCommentByAuthorId = catchAsync(async (req : Request, res : Response, ne
 
 const getCommentByPostId = catchAsync(async (req : Request, res : Response, next : NextFunction) => {
     const { postId } = req.params
-    const result = await commentService.getCommentByCommentId(postId as string)
+    const result = await commentService.getCommentByPostId(postId as string)
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.OK,
